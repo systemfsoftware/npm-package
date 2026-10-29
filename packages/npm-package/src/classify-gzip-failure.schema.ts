@@ -6,19 +6,25 @@ const GzipFailureDecisionTypeId: unique symbol = Symbol.for(
 )
 type GzipFailureDecisionTypeId = typeof GzipFailureDecisionTypeId
 
-export class NotGzipHeader extends Schema.TaggedClass<NotGzipHeader>()('NotGzipHeader', {}) {
+export class NotGzipHeader
+  extends Schema.TaggedClass<NotGzipHeader, { readonly brand: unique symbol }>()('NotGzipHeader', {})
+{
   readonly [GzipFailureDecisionTypeId] = GzipFailureDecisionTypeId
 }
 
-export class DamagedGzipStream extends Schema.TaggedClass<DamagedGzipStream>()('DamagedGzipStream', {}) {
+export class DamagedGzipStream
+  extends Schema.TaggedClass<DamagedGzipStream, { readonly brand: unique symbol }>()('DamagedGzipStream', {})
+{
   readonly [GzipFailureDecisionTypeId] = GzipFailureDecisionTypeId
 }
 
 export const GzipFailureDecision = Schema.Union([NotGzipHeader, DamagedGzipStream])
 export type GzipFailureDecision = typeof GzipFailureDecision.Type
 
-export class ClassifyGzipFailure extends Schema.TaggedClass<ClassifyGzipFailure>()('ClassifyGzipFailure', {
-  code: Schema.NullOr(Schema.Finite),
-}) {
+export class ClassifyGzipFailure
+  extends Schema.TaggedClass<ClassifyGzipFailure, { readonly brand: unique symbol }>()('ClassifyGzipFailure', {
+    code: Schema.NullOr(Schema.Finite),
+  })
+{
   static readonly [Workflow.InstrumentationBrand] = {} as const
 }

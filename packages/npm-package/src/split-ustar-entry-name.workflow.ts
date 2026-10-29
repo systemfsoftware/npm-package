@@ -7,26 +7,32 @@ const SplitUstarEntryNameDecisionTypeId: unique symbol = Symbol.for(
 )
 type SplitUstarEntryNameDecisionTypeId = typeof SplitUstarEntryNameDecisionTypeId
 
-export class FitsNameField extends Schema.TaggedClass<FitsNameField>()('FitsNameField', {
-  nameField: Schema.Uint8Array,
-}) {
+export class FitsNameField
+  extends Schema.TaggedClass<FitsNameField, { readonly brand: unique symbol }>()('FitsNameField', {
+    nameField: Schema.Uint8Array,
+  })
+{
   readonly [SplitUstarEntryNameDecisionTypeId] = SplitUstarEntryNameDecisionTypeId
 }
 
-export class SplitIntoPrefixAndName extends Schema.TaggedClass<SplitIntoPrefixAndName>()(
-  'SplitIntoPrefixAndName',
-  { prefixField: Schema.Uint8Array, nameField: Schema.Uint8Array },
-) {
+export class SplitIntoPrefixAndName
+  extends Schema.TaggedClass<SplitIntoPrefixAndName, { readonly brand: unique symbol }>()(
+    'SplitIntoPrefixAndName',
+    { prefixField: Schema.Uint8Array, nameField: Schema.Uint8Array },
+  )
+{
   readonly [SplitUstarEntryNameDecisionTypeId] = SplitUstarEntryNameDecisionTypeId
 }
 
 export const SplitUstarEntryNameDecision = Schema.Union([FitsNameField, SplitIntoPrefixAndName])
 export type SplitUstarEntryNameDecision = typeof SplitUstarEntryNameDecision.Type
 
-export class UstarEntryNameTooLong extends Schema.TaggedError<UstarEntryNameTooLong>()(
-  'UstarEntryNameTooLong',
-  { byteLength: Schema.Finite },
-) {
+export class UstarEntryNameTooLong
+  extends Schema.TaggedError<UstarEntryNameTooLong, { readonly brand: unique symbol }>()(
+    'UstarEntryNameTooLong',
+    { byteLength: Schema.Finite },
+  )
+{
   readonly [SplitUstarEntryNameDecisionTypeId] = SplitUstarEntryNameDecisionTypeId
 
   override get message(): string {
@@ -34,9 +40,11 @@ export class UstarEntryNameTooLong extends Schema.TaggedError<UstarEntryNameTooL
   }
 }
 
-export class SplitUstarEntryName extends Schema.TaggedClass<SplitUstarEntryName>()('SplitUstarEntryName', {
-  nameBytes: Schema.Uint8Array,
-}) {
+export class SplitUstarEntryName
+  extends Schema.TaggedClass<SplitUstarEntryName, { readonly brand: unique symbol }>()('SplitUstarEntryName', {
+    nameBytes: Schema.Uint8Array,
+  })
+{
   static readonly [Workflow.InstrumentationBrand] = {} as const
 }
 
