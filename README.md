@@ -8,11 +8,7 @@ An npm package as an in-memory file tree: build one from an authored file map, p
 
 ## Install
 
-```bash
-pnpm add @systemfsoftware/npm-package
-```
-
-The npm registry lags this repository's sources: `@systemfsoftware/npm-package` is 1.0.0 on npm and 1.0.3 here. Each package's README describes its current source.
+https://nix.systemfsoftware.com is the package registry for `@systemfsoftware` packages: a producer pushes its package tarballs there from `main`, a consumer substitutes them through its flake inputs, and nothing is published to npm.
 
 ## Usage
 
