@@ -10,20 +10,16 @@ Extracted from `systemfsoftware/systemfsoftware` (core); package history came wi
 | ------------------------------ | ------- | ----------- |
 | `@systemfsoftware/npm-package` | 1.0.3   | yes         |
 
-Transitional: effect-memfs still comes from the core pin; once core drops it, add systemfsoftware/effect-memfs as a producer in flake.nix.
-
 ## Dependencies on core
 
-Core packages are not installed from a registry. `flake.nix` pins core at a full commit (input `core`) and
-`nix build .#sfs-deps` links the core tarballs this lockfile names. `pnpm-workspace.yaml` maps every core package
-(and its transitive core closure) to `file:.sfs-deps/<name>-<version>.tgz` through `overrides`; the moved manifests
-name ordinary semver ranges. To take newer core packages: bump the `core` input, update the override versions,
-rebuild `.sfs-deps`, run `pnpm install`.
+https://nix.systemfsoftware.com is the package registry for `@systemfsoftware` packages: a producer pushes its package tarballs there from `main`, a consumer substitutes them through its flake inputs, and nothing is published to npm.
+
+`flake.nix` pins core at a full commit (input `core`) and pins `effect-memfs` at a full commit (input `effect-memfs`, a producer of its own). `pnpm-release-management.lib.mkProducerTarballs` lays both producers' pushed tarballs into `.deps/` when the dev shell starts. `pnpm-workspace.yaml` maps every such package to `file:.deps/<name>.tgz` through `overrides`; the moved manifests name ordinary semver ranges. To take newer packages: bump the input, run `nix flake update <input>`, run `nix eval --raw .#producer-tarballs.overrides` to refresh `overrides` if the set changed, then `pnpm update '@systemfsoftware/*'`.
 
 Local setup:
 
 ```bash
-mkdir -p .sfs-deps && cp -L --no-preserve=mode "$(nix build --no-link --print-out-paths .#sfs-deps)"/*.tgz .sfs-deps/
+nix develop   # the shell hook copies the producers' tarballs into .deps/
 pnpm install
 ```
 
