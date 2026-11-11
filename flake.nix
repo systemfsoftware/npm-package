@@ -10,7 +10,7 @@
   inputs = {
     # Core at a full commit. Core is public, so no fetch token is needed. Moving this pin is how the
     # repository takes newer core packages: bump it, run `nix flake update core`, then `pnpm update`.
-    core.url = "github:systemfsoftware/systemfsoftware/e1c7a5f4655d1705de502ebe0de3c1fa87e35591";
+    core.url = "github:systemfsoftware/systemfsoftware/b146694efe1139948c03bd9e9e366c725252c0d1";
     nixpkgs.follows = "core/nixpkgs";
     pnpm-release-management.url = "github:systemfsoftware/pnpm-release-management";
     # effect-memfs left core, so it is a producer of its own. Moving this pin moves the tarball.
