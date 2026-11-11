@@ -14,7 +14,7 @@
     nixpkgs.follows = "core/nixpkgs";
     pnpm-release-management.url = "github:systemfsoftware/pnpm-release-management";
     # effect-memfs left core, so it is a producer of its own. Moving this pin moves the tarball.
-    effect-memfs.url = "github:systemfsoftware/effect-memfs/ae156f8be7572fdc3a27a6509aa2755bf8eeed66";
+    effect-memfs.url = "github:systemfsoftware/effect-memfs/640c12230a4777bde777d9f34ce2d5430b88252f";
   };
 
   outputs = { self, nixpkgs, core, effect-memfs, pnpm-release-management }:
