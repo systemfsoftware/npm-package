@@ -40,3 +40,12 @@ attw and the tests. Run it before pushing.
 
 Open pull requests against `main` in systemfsoftware/npm-package. Commit messages follow Conventional Commits
 (`commitlint.config.ts`).
+
+## What CI checks
+
+A pull request runs one job. It lints the squash message and runs `pnpm check:static`: dprint, build, lint, typecheck,
+type tests, API reports and attw. A pull request that changes only documentation skips the dev shell and the static
+checks, and still lints the squash message.
+
+The merge queue's draft and a push to `main` run `pnpm check:ci`, which adds the whole test suite. A newer push to a
+pull request cancels its older run.
