@@ -27,30 +27,11 @@ The name and version are arguments to `createPackage`. It does not read them fro
 
 ## Install
 
-`@systemfsoftware` packages are not published to npm. They come from nix.systemfsoftware.com, the package registry for `@systemfsoftware` packages.
+```bash
+pnpm add @systemfsoftware/npm-package effect@^4
+```
 
-1. Add this repository as a flake input:
-
-   ```nix
-   inputs.npm-package.url = "github:systemfsoftware/npm-package";
-   ```
-
-2. Substitute from the cache:
-
-   ```nix
-   nixConfig = {
-     extra-substituters = "https://nix.systemfsoftware.com";
-     extra-trusted-public-keys = "nix-cache-1:wXA8I4DayNW9q6enUyQA/P/nT38pGSTLt374t3gsn7M=";
-   };
-   ```
-
-3. Take the package tarball through the consumer route in [pnpm-release-management](https://github.com/systemfsoftware/pnpm-release-management). That repository provides `lib.mkProducerTarballs` and `lib.mkPnpmConsumerStore`.
-
-4. Install the peer from npm. You bring `effect` yourself:
-
-   ```bash
-   pnpm add effect@^4
-   ```
+`effect` is a peer dependency: this package declares it but does not install it, so one copy is shared with the rest of your project.
 
 ## API
 

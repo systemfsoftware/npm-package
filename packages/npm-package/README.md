@@ -2,7 +2,13 @@
 
 An npm package as an in-memory file tree. Build one from an authored file map, pack it to tarball bytes, and read one back — without touching the filesystem, spawning `npm pack`, or installing a compiler.
 
-A consumer takes this package from nix.systemfsoftware.com, the package registry for `@systemfsoftware` packages, through a flake input; nothing is published to npm. The repository README describes the route.
+## Install
+
+```bash
+pnpm add @systemfsoftware/npm-package effect@^4
+```
+
+`effect` is a peer dependency: this package declares it but does not install it, so one copy is shared with the rest of your project.
 
 ## Build a package from a file map
 
