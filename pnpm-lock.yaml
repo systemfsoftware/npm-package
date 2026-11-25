@@ -218,7 +218,7 @@ catalogs:
 overrides:
   oxlint: ~1.89.0
   '@oxlint/plugins': ~1.89.0
-  fast-check: ^4.10.2
+  fast-check: ^4.10.3
   vite: ^8.3.4
   esbuild: ^0.28.2
 
