@@ -15,12 +15,12 @@ permissions:
 
 jobs:
   checks:
-    uses: systemfsoftware/systemfsoftware/.github/workflows/reusable-ci.yml@f271b208fd10c56d27380de6bc43f54b9c7ee2a5
+    uses: systemfsoftware/systemfsoftware/.github/workflows/reusable-ci.yml@9e947ae10f72d9614e9dbd702bd2c424aceb7099
     with:
       commitlint: true
       changeset: false
       fast: |
-        s=0; ./bin/dprint check || s=1
+        s=0; dprint check || s=1
         export TURBO_SCM_BASE="$BASE" TURBO_SCM_HEAD="$HEAD"
         pnpm exec turbo run --concurrency=${TURBO_CONCURRENCY:-50%} --continue build lint typecheck test:types api:check attw --affected || s=1
         exit $s

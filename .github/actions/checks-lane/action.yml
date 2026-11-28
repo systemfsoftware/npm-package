@@ -74,10 +74,10 @@ runs:
       if: inputs.lane == 'static'
     - uses: cachix/install-nix-action@v31
       if: inputs.lane == 'static' || inputs.lane == 'docs'
-    - name: dprint from the flake
+    - name: dprint from the dev shell
       if: inputs.lane == 'static' || inputs.lane == 'docs'
       shell: bash -e {0}
-      run: echo "$(nix build --no-link --print-out-paths .#dprint)/bin" >> "$GITHUB_PATH"
+      run: echo "$(dirname "$(nix develop --accept-flake-config --command sh -c 'command -v dprint')")" >> "$GITHUB_PATH"
     - name: Turbo cache
       if: inputs.lane == 'static'
       uses: actions/cache@v6
